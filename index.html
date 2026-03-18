@@ -16,8 +16,9 @@
         .app-container {
             width: 100%; max-width: 450px; height: 100%; position: relative; 
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            /* SEKARANG MEMANGGIL FILE DARI GITHUB */
             background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
-                              url('https://i.ibb.co/1YQTpY5c/Salinan-dari-THR-Nada-20260317-041204-0000.png');
+                              url('THR Nada.png');
             background-size: cover; background-position: center; overflow: hidden;
         }
 
@@ -161,7 +162,6 @@
 </div>
 
 <script>
-    // MENGGUNAKAN NAMA FILE GITHUB SESUAI GAMBAR KAMU
     const moneyImages = {
         '5k': 'Uang 5.000x4.png', 
         '10k': 'Uang 10.000x2.png',
@@ -170,7 +170,6 @@
 
     let opened = false;
 
-    // PRELOAD GAMBAR AGAR ANTI-LEMOT
     window.onload = () => {
         Object.values(moneyImages).forEach(src => {
             const img = new Image();
@@ -178,6 +177,9 @@
         });
         const familyImg = new Image();
         familyImg.src = 'family picture.png';
+        // Preload Background juga
+        const bgImg = new Image();
+        bgImg.src = 'THR Nada.png';
     };
 
     function nextSlide(n) {
