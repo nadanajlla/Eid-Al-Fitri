@@ -96,7 +96,7 @@
         <p>Minal Aidzin wal faidzin</p>
         <button class="btn" onclick="nextSlide(2)">klik disini jika dimaafkan</button>
         <div class="photo-frame">
-            <img src="https://i.ibb.co.com/yn1Z4RQ7/family-picture.png" class="footer-photo">
+            <img src="family picture.png" class="footer-photo">
         </div>
     </div>
 
@@ -108,7 +108,7 @@
             <button class="btn" onclick="nextSlide(3)">Mau THR ➔</button>
         </div>
         <div class="photo-frame">
-            <img src="https://i.ibb.co.com/yn1Z4RQ7/family-picture.png" class="footer-photo">
+            <img src="family picture.png" class="footer-photo">
         </div>
     </div>
 
@@ -158,21 +158,33 @@
             </div>
         </div>
     </div>
+</div>
+
 <script>
+    // MENGGUNAKAN NAMA FILE GITHUB SESUAI GAMBAR KAMU
     const moneyImages = {
-        '5k': 'https://i.ibb.co.com/xq21g0WV/Desain-tanpa-judul-4.png', 
-        '10k': 'https://i.ibb.co.com/Pv1Qmp9S/Uang-10-000x2.png',
-        '20k': 'https://i.ibb.co.com/JWnBhNMh/Uang-20-000-2.png' 
+        '5k': 'Uang 5.000x4.png', 
+        '10k': 'Uang 10.000x2.png',
+        '20k': 'Uang 20.000.png' 
     };
 
     let opened = false;
+
+    // PRELOAD GAMBAR AGAR ANTI-LEMOT
+    window.onload = () => {
+        Object.values(moneyImages).forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+        const familyImg = new Image();
+        familyImg.src = 'family picture.png';
+    };
 
     function nextSlide(n) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById('slide' + n).classList.add('active');
     }
 
-    // Fungsi khusus untuk mengulang agar semua status reset
     function restartApp() {
         opened = false;
         document.getElementById('btnKlaim').style.display = 'none';
