@@ -65,7 +65,7 @@
         /* --- Animasi Acak (Shuffle/Diusut) --- */
         .shuffling {
             animation: shuffle-usut 0.4s infinite alternate;
-            pointer-events: none; /* Cegah klik saat ngacak */
+            pointer-events: none; 
             opacity: 0.9;
         }
 
@@ -123,8 +123,7 @@
 
     <div id="slide3" class="section">
         <h3 id="thr-title">Sedang Mengacak... ⏳</h3>
-        <div class="ampau-grid" id="ampau-container">
-            </div>
+        <div class="ampau-grid" id="ampau-container"></div>
         <div class="btn-group" style="align-items: center;">
             <button id="btnKlaim" class="btn" style="display:none" onclick="nextSlide(4)">Klaim THR ➔</button>
         </div>
@@ -191,19 +190,20 @@
         isShuffling = true;
         const container = document.getElementById('ampau-container');
         const title = document.getElementById('thr-title');
-        document.getElementById('btnKlaim').style.display = 'none';
+        const btnKlaim = document.getElementById('btnKlaim');
+        
+        btnKlaim.style.display = 'none';
+        btnKlaim.innerText = "Klaim THR ➔"; // Reset teks tombol
         
         title.innerText = "Mengacak Posisi... 🧧";
         container.innerHTML = '';
 
-        // Fisher-Yates Shuffle Logic
         const shuffledData = [...initialAmpauData];
         for (let i = shuffledData.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffledData[i], shuffledData[j]] = [shuffledData[j], shuffledData[i]];
         }
 
-        // Generate Ampau Box
         shuffledData.forEach(data => {
             const box = document.createElement('div');
             box.className = 'ampau-box shuffling';
@@ -212,7 +212,6 @@
             container.appendChild(box);
         });
 
-        // Berhenti mengacak setelah 3 detik
         setTimeout(() => {
             isShuffling = false;
             title.innerText = "Pilih Ampau-mu ✨";
@@ -228,6 +227,15 @@
         el.style.background = "#fff"; 
         el.innerHTML = ''; 
         
+        const btnKlaim = document.getElementById('btnKlaim');
+        
+        // Logika perubahan teks tombol jika ZONK
+        if (type === 'zonk') {
+            btnKlaim.innerText = "Yahh, kasian banget 🥺";
+        } else {
+            btnKlaim.innerText = "Klaim THR ➔";
+        }
+
         const moneyCont = document.createElement('div');
         moneyCont.className = 'money-container';
         moneyCont.style.display = 'flex';
@@ -249,7 +257,7 @@
         
         el.appendChild(moneyCont);
         el.appendChild(text);
-        document.getElementById('btnKlaim').style.display = "block";
+        btnKlaim.style.display = "block";
     }
 
     function restartApp() {
