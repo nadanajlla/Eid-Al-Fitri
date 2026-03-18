@@ -62,7 +62,6 @@
             transition: 0.3s;
         }
 
-        /* --- Animasi Acak (Shuffle/Diusut) --- */
         .shuffling {
             animation: shuffle-usut 0.4s infinite alternate;
             pointer-events: none; 
@@ -85,6 +84,20 @@
             width: 100%; height: auto; position: absolute;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             border-radius: 2px; animation: slideUp 0.5s ease-out;
+        }
+
+        /* Bubble Style untuk Zonk */
+        .zonk-bubble {
+            background: white; color: #b91c1c; padding: 5px 10px;
+            border-radius: 15px; font-weight: bold; font-size: 0.8rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #b91c1c; z-index: 20;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         @keyframes slideUp {
@@ -125,7 +138,7 @@
         <h3 id="thr-title">Sedang Mengacak... ⏳</h3>
         <div class="ampau-grid" id="ampau-container"></div>
         <div class="btn-group" style="align-items: center;">
-            <button id="btnKlaim" class="btn" style="display:none" onclick="nextSlide(4)">Klaim THR ➔</button>
+            <button id="btnKlaim" class="btn" style="display:none" onclick="handleClaim()">Klaim THR ➔</button>
         </div>
     </div>
 
@@ -161,11 +174,12 @@
         'zonk': 'zonk.png'
     };
 
+    // Data Awal dengan 3 Zonk
     const initialAmpauData = [
         { type: '20k', count: 1, text: '20.000' },
         { type: 'zonk', count: 1, text: 'zonk' },
         { type: '10k', count: 1, text: '10.000x2 = 20.000' },
-        { type: '20k', count: 1, text: '20.000' },
+        { type: 'zonk', count: 1, text: 'zonk' }, // Tambahan zonk
         { type: '5k', count: 1, text: '5.000x4 = 20.000' },
         { type: '10k', count: 1, text: '10.000x2 = 20.000' },
         { type: 'zonk', count: 1, text: 'zonk' },
@@ -174,6 +188,7 @@
 
     let opened = false;
     let isShuffling = false;
+    let currentResult = '';
 
     function nextSlide(n) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -188,12 +203,13 @@
     function renderAndShuffle() {
         opened = false;
         isShuffling = true;
+        currentResult = '';
         const container = document.getElementById('ampau-container');
         const title = document.getElementById('thr-title');
         const btnKlaim = document.getElementById('btnKlaim');
         
         btnKlaim.style.display = 'none';
-        btnKlaim.innerText = "Klaim THR ➔"; // Reset teks tombol
+        btnKlaim.innerText = "Klaim THR ➔"; 
         
         title.innerText = "Mengacak Posisi... 🧧";
         container.innerHTML = '';
@@ -224,40 +240,54 @@
     function revealMoney(el, type, count, customText) {
         if(opened || isShuffling) return; 
         opened = true;
+        currentResult = type;
         el.style.background = "#fff"; 
         el.innerHTML = ''; 
         
         const btnKlaim = document.getElementById('btnKlaim');
         
-        // Logika perubahan teks tombol jika ZONK
         if (type === 'zonk') {
-            btnKlaim.innerText = "Yahh, kasian banget 🥺";
+            // Tampilkan bubble di tengah ampau
+            const bubble = document.createElement('div');
+            bubble.className = 'zonk-bubble';
+            bubble.innerText = "yahh kasian banget 🥺";
+            el.appendChild(bubble);
+            
+            btnKlaim.innerText = "Selesai";
         } else {
+            const moneyCont = document.createElement('div');
+            moneyCont.className = 'money-container';
+            moneyCont.style.display = 'flex';
+
+            for (let i = 0; i < count; i++) {
+                const img = document.createElement('img');
+                img.src = moneyImages[type];
+                img.className = 'money-img';
+                const rot = i * 5; 
+                img.style.setProperty('--rot', `${rot}deg`);
+                img.style.transform = `rotate(${rot}deg) translateY(${i * -6}px)`;
+                img.style.zIndex = i;
+                moneyCont.appendChild(img);
+            }
+            el.appendChild(moneyCont);
+            
+            const text = document.createElement('div');
+            text.className = 'reveal-text';
+            text.innerText = customText;
+            el.appendChild(text);
+
             btnKlaim.innerText = "Klaim THR ➔";
         }
-
-        const moneyCont = document.createElement('div');
-        moneyCont.className = 'money-container';
-        moneyCont.style.display = 'flex';
-
-        for (let i = 0; i < count; i++) {
-            const img = document.createElement('img');
-            img.src = moneyImages[type];
-            img.className = 'money-img';
-            const rot = i * 5; 
-            img.style.setProperty('--rot', `${rot}deg`);
-            img.style.transform = `rotate(${rot}deg) translateY(${i * -6}px)`;
-            img.style.zIndex = i;
-            moneyCont.appendChild(img);
-        }
-
-        const text = document.createElement('div');
-        text.className = 'reveal-text';
-        text.innerText = customText;
         
-        el.appendChild(moneyCont);
-        el.appendChild(text);
         btnKlaim.style.display = "block";
+    }
+
+    function handleClaim() {
+        if (currentResult === 'zonk') {
+            restartApp(); // Kembali ke slide 1 jika zonk
+        } else {
+            nextSlide(4); // Lanjut pilih pengambilan jika menang
+        }
     }
 
     function restartApp() {
