@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELAMAT HARI RAYA IDUL FITRI</title>
+    <style>
+        :root { --gold: #d4af37; --dark-green: #1b4332; }
+        
+        body { 
+            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; 
+            background: #f3f3f3; display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden; 
+        }
+        
+        .app-container {
+            width: 100%; max-width: 450px; height: 100%; position: relative; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+                              url('https://i.ibb.co/1YQTpY5c/Salinan-dari-THR-Nada-20260317-041204-0000.png');
+            background-size: cover; background-position: center; overflow: hidden;
+        }
+
+        .section { 
+            display: none; height: 100%; flex-direction: column; 
+            justify-content: flex-start; align-items: center; 
+            padding: 120px 20px 20px 20px; text-align: center; position: relative; 
+        }
+        .active { display: flex; }
+
+        h1, h2, h3 { color: var(--dark-green); margin: 10px 0; z-index: 20; position: relative; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);}
+        p { margin-bottom: 20px; font-size: 0.95rem; z-index: 20; position: relative; font-weight: 500;}
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; z-index: 100; position: relative; width: 85%; }
+        .btn { 
+            background: var(--dark-green); color: white; padding: 12px 25px; 
+            border-radius: 50px; border: 2px solid var(--gold); 
+            font-weight: bold; cursor: pointer; text-decoration: none; 
+            font-size: 0.9rem; position: relative; z-index: 101;
+            text-align: center; margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .btn-back { background: #6c757d; border-color: #5a6268; }
+
+        .photo-frame {
+            position: absolute; 
+            bottom: 0; left: 0; width: 100%; height: 90vh; 
+            margin: 0; border: none; outline: none; 
+            background: transparent; z-index: 10; 
+        }
+
+        .footer-photo { 
+            width: 100%; height: 100%; object-fit: contain; 
+            object-position: bottom; display: block; 
+        }
+
+        .ampau-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-top: 20px; z-index: 50; }
+        .ampau-box { 
+            background: #b91c1c; height: 120px; border-radius: 10px; 
+            border: 2px solid var(--gold); display: flex; justify-content: center; 
+            align-items: center; cursor: pointer; color: white; position: relative; overflow: hidden;
+            transition: 0.3s;
+        }
+        
+        .money-container {
+            display: none; position: relative; width: 90%; height: 90%;
+            justify-content: center; align-items: center;
+        }
+
+        .money-img {
+            width: 100%; height: auto; position: absolute;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            border-radius: 2px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px) rotate(0deg); opacity: 0; }
+            to { transform: translateY(0) rotate(var(--rot)); opacity: 1; }
+        }
+
+        .reveal-text { position: absolute; bottom: 5px; background: rgba(0,0,0,0.7); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; z-index: 10; font-weight: bold; }
+
+        .maps-container {
+            width: 100%; height: 220px; border: 4px solid white; 
+            outline: 2px solid var(--gold); border-radius: 12px; 
+            overflow: hidden; margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div id="slide1" class="section active">
+        <h1>Selamat Hari Raya Idul Fitri 1446 H</h1>
+        <p>Mohon Maaf Lahir dan Batin</p>
+        <button class="btn" onclick="nextSlide(2)">klik disini jika dimaafkan</button>
+        <div class="photo-frame">
+            <img src="https://i.ibb.co.com/yn1Z4RQ7/family-picture.png" class="footer-photo">
+        </div>
+    </div>
+
+    <div id="slide2" class="section">
+        <h2>Ibu Eryanti Sekeluarga</h2>
+        <p style="padding: 0 10px;">Minal aidzin wal faidzin untuk keluargaku, saudaraku, dan sahabatku. Minal Aidzin wal Faidzin, Mohon maaf Lahir dan Batin. Semoga kita dapat saling memaafkan dan mendapat ridho Allah SWT. Aamiinn.</p>
+        <div class="btn-group" style="flex-direction: row; justify-content: center;">
+            <button class="btn btn-back" onclick="nextSlide(1)">Kembali</button>
+            <button class="btn" onclick="nextSlide(3)">Mau THR ➔</button>
+        </div>
+        <div class="photo-frame">
+            <img src="https://i.ibb.co.com/yn1Z4RQ7/family-picture.png" class="footer-photo">
+        </div>
+    </div>
+
+    <div id="slide3" class="section">
+        <h3>Pilih Ampau-mu ✨</h3>
+        <div class="ampau-grid">
+            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')">
+                <span style="font-size: 2.2rem;">🧧</span>
+            </div>
+            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')">
+                <span style="font-size: 2.2rem;">🧧</span>
+            </div>
+            <div class="ampau-box" onclick="revealMoney(this, '10k', 1, '10.000x2 = 20.000')">
+                <span style="font-size: 2.2rem;">🧧</span>
+            </div>
+            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')">
+                <span style="font-size: 2.2rem;">🧧</span>
+            </div>
+        </div>
+        <div class="btn-group" style="align-items: center;">
+            <button id="btnKlaim" class="btn" style="display:none" onclick="nextSlide(4)">Klaim THR ➔</button>
+        </div>
+    </div>
+
+    <div id="slide4" class="section">
+        <h3>Pilih Pengambilan</h3>
+        <div class="btn-group">
+            <button class="btn" onclick="nextSlide(5)">Ambil Tunai (Datang Ke Rumah) ➔</button>
+            <a href="https://app.shopeepay.co.id/u/WKrsyfRQtvH9p797gkpfw?smtt=0.0.9" class="btn" style="background: #ee4d2d; border-color: white;">Klaim ShopeePay ➔</a>
+        </div>
+    </div>
+
+   <div id="slide5" class="section">
+        <div class="maps-container">
+            <iframe width="100%" height="100%" frameborder="0" style="border:0" 
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3947.168593326117!2d114.3140950750114!3d-8.469211691571477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMjgWMDkuMiJTIDExNMKwMTknMDAuMCJF!5e0!3m2!1sid!2sid!4v1710750000000" allowfullscreen></iframe>
+        </div>
+        <h3>LOKASI RUMAH UTI YEM & KUNG NI</h3>
+        <p>Terima kasih, sitik-sitik ge tumbas permen yo le/nduk</p>
+        
+        <div class="btn-group">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=-8.469217,114.316670" target="_blank" class="btn" style="background: #4285F4; border-color: white; margin-top: 0;">Petunjuk Jalan (Maps) ➔</a>
+            
+            <div style="display: flex; gap: 10px; width: 100%;">
+                <button class="btn btn-back" style="flex: 1;" onclick="nextSlide(4)">Kembali</button>
+                <button class="btn btn-back" style="flex: 1;" onclick="restartApp()">Ulangi ↺</button>
+            </div>
+        </div>
+    </div>
+<script>
+    const moneyImages = {
+        '5k': 'https://i.ibb.co.com/xq21g0WV/Desain-tanpa-judul-4.png', 
+        '10k': 'https://i.ibb.co.com/Pv1Qmp9S/Uang-10-000x2.png',
+        '20k': 'https://i.ibb.co.com/JWnBhNMh/Uang-20-000-2.png' 
+    };
+
+    let opened = false;
+
+    function nextSlide(n) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('slide' + n).classList.add('active');
+    }
+
+    // Fungsi khusus untuk mengulang agar semua status reset
+    function restartApp() {
+        opened = false;
+        document.getElementById('btnKlaim').style.display = 'none';
+        document.querySelectorAll('.ampau-box').forEach(b => {
+            b.style.background = "#b91c1c";
+            b.innerHTML = '<span style="font-size: 2.2rem;">🧧</span>';
+        });
+        nextSlide(1);
+    }
+
+    function revealMoney(el, type, count, customText) {
+        if(opened) return;
+        opened = true;
+        el.style.background = "#fff"; 
+        el.innerHTML = ''; 
+        const container = document.createElement('div');
+        container.className = 'money-container';
+        container.style.display = 'flex';
+
+        for (let i = 0; i < count; i++) {
+            const img = document.createElement('img');
+            img.src = moneyImages[type];
+            img.className = 'money-img';
+            const rot = i * 5; 
+            img.style.setProperty('--rot', `${rot}deg`);
+            img.style.transform = `rotate(${rot}deg) translateY(${i * -6}px)`;
+            img.style.zIndex = i;
+            container.appendChild(img);
+        }
+        const text = document.createElement('div');
+        text.className = 'reveal-text';
+        text.innerText = customText;
+        el.appendChild(container);
+        el.appendChild(text);
+        document.getElementById('btnKlaim').style.display = "block";
+    }
+</script>
+</body>
+</html>
