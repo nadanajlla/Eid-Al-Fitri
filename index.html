@@ -24,24 +24,19 @@
         .section { 
             display: none; height: 100%; flex-direction: column; 
             justify-content: flex-start; align-items: center; 
-            padding: 120px 20px 20px 20px; text-align: center; position: relative; 
+            padding: 80px 20px 20px 20px; text-align: center; position: relative; 
+            overflow-y: auto; /* Agar bisa di-scroll jika ampau banyak */
         }
         .active { display: flex; }
 
-        /* --- REVISI JARAK HALAMAN 1 --- */
-        #slide1 { padding-top: 150px; }
-        #slide1 h1 { margin-bottom: 20px; }
-        #slide1 p { margin-bottom: 30px; }
-
-        /* --- REVISI JARAK HALAMAN 2 --- */
-        #slide2 { padding-top: 150px; }
-        #slide2 h2 { margin-bottom: 20px; }
-        #slide2 p { margin-bottom: 30px; }
+        #slide1, #slide2 { padding-top: 150px; }
+        #slide1 h1, #slide2 h2 { margin-bottom: 20px; }
+        #slide1 p, #slide2 p { margin-bottom: 30px; }
 
         h1, h2, h3 { color: var(--dark-green); margin: 10px 0; z-index: 20; position: relative; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);}
         p { margin-bottom: 20px; font-size: 0.95rem; z-index: 20; position: relative; font-weight: 500;}
 
-        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; z-index: 100; position: relative; width: 85%; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; z-index: 100; position: relative; width: 85%; padding-bottom: 20px; }
         .btn { 
             background: var(--dark-green); color: white; padding: 12px 25px; 
             border-radius: 50px; border: 2px solid var(--gold); 
@@ -56,7 +51,7 @@
             position: absolute; 
             bottom: 0; left: 0; 
             width: 100%; 
-            height: 55vh; 
+            height: 95vh; 
             margin: 0; border: none; outline: none; 
             background: transparent; z-index: 10; 
         }
@@ -66,20 +61,19 @@
             object-position: bottom; display: block; 
         }
 
-        /* GRID DIUBAH AGAR MUAT 6 AMPAU */
+        /* --- GRID AMPAU --- */
         .ampau-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 12px; 
+            gap: 15px; 
             width: 100%; 
-            margin-top: 15px; 
+            margin-top: 20px; 
             z-index: 50; 
-            max-height: 400px; 
-            overflow-y: auto; 
-            padding: 5px;
+            max-height: 60vh; /* Membatasi tinggi agar tidak menutupi tombol */
         }
+        
         .ampau-box { 
-            background: #b91c1c; height: 100px; border-radius: 10px; 
+            background: #b91c1c; height: 110px; border-radius: 10px; 
             border: 2px solid var(--gold); display: flex; justify-content: center; 
             align-items: center; cursor: pointer; color: white; position: relative; overflow: hidden;
             transition: 0.3s;
@@ -102,7 +96,7 @@
             to { transform: translateY(0) rotate(var(--rot)); opacity: 1; }
         }
 
-        .reveal-text { position: absolute; bottom: 5px; background: rgba(0,0,0,0.7); color: white; font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; z-index: 10; font-weight: bold; width: 80%; }
+        .reveal-text { position: absolute; bottom: 5px; background: rgba(0,0,0,0.7); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; z-index: 10; font-weight: bold; }
 
         .maps-container {
             width: 100%; height: 220px; border: 4px solid white; 
@@ -125,7 +119,7 @@
 
     <div id="slide2" class="section">
         <h2>Ibu Eryanti Sekeluarga</h2>
-        <p style="padding: 0 10px;">Minal aidzin wal faidzin untuk keluargaku, saudaraku, dan sahabatku. Minal Aidzin wal Faidzin, Mohon maaf Lahir dan Batin. Semoga kita dapat saling memaafkan dan mendapat ridho Allah SWT. Aamiinn.</p>
+        <p style="padding: 0 10px;">Minal aidzin wal faidzin untuk keluargaku, saudaraku, dan sahabatku. Mohon maaf Lahir dan Batin. Aamiinn.</p>
         <div class="btn-group" style="flex-direction: row; justify-content: center;">
             <button class="btn btn-back" onclick="nextSlide(1)">Kembali</button>
             <button class="btn" onclick="nextSlide(3)">Mau THR ➔</button>
@@ -138,26 +132,17 @@
     <div id="slide3" class="section">
         <h3>Pilih Ampau-mu ✨</h3>
         <div class="ampau-grid">
-            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
-            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
-            <div class="ampau-box" onclick="revealMoney(this, '10k', 1, '10.000x2 = 20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
-            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
-            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
-            <div class="ampau-box" onclick="revealMoney(this, '10k', 1, '10.000x2 = 20.000')">
-                <span style="font-size: 2rem;">🧧</span>
-            </div>
+            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '10k', 1, '10.000x2 = 20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            
+            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '10k', 1, '10.000x2 = 20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '20k', 1, '20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
+            <div class="ampau-box" onclick="revealMoney(this, '5k', 1, '5.000x4 = 20.000')"><span style="font-size: 2.2rem;">🧧</span></div>
         </div>
-        <div class="btn-group" style="align-items: center; margin-top: 15px;">
+        <div class="btn-group" style="align-items: center;">
             <button id="btnKlaim" class="btn" style="display:none" onclick="nextSlide(4)">Klaim THR ➔</button>
         </div>
     </div>
@@ -170,17 +155,15 @@
         </div>
     </div>
 
-   <div id="slide5" class="section">
+    <div id="slide5" class="section">
         <div class="maps-container">
             <iframe width="100%" height="100%" frameborder="0" style="border:0" 
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3947.168593326117!2d114.3140950750114!3d-8.469211691571477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMjgWMDkuMiJTIDExNMKwMTknMDAuMCJF!5e0!3m2!1sid!2sid!4v1710750000000" allowfullscreen></iframe>
         </div>
         <h3>LOKASI RUMAH UTI YEM & KUNG NI</h3>
         <p>Terima kasih, sitik-sitik ge tumbas permen yo le/nduk</p>
-        
         <div class="btn-group">
             <a href="https://www.google.com/maps/dir/?api=1&destination=-8.469217,114.316670" target="_blank" class="btn" style="background: #4285F4; border-color: white; margin-top: 0;">Petunjuk Jalan (Maps) ➔</a>
-            
             <div style="display: flex; gap: 10px; width: 100%;">
                 <button class="btn btn-back" style="flex: 1;" onclick="nextSlide(4)">Kembali</button>
                 <button class="btn btn-back" style="flex: 1;" onclick="restartApp()">Ulangi ↺</button>
@@ -205,8 +188,6 @@
         });
         const familyImg = new Image();
         familyImg.src = 'family picture.png';
-        const bgImg = new Image();
-        bgImg.src = 'THR Nada.png';
     };
 
     function nextSlide(n) {
@@ -219,7 +200,7 @@
         document.getElementById('btnKlaim').style.display = 'none';
         document.querySelectorAll('.ampau-box').forEach(b => {
             b.style.background = "#b91c1c";
-            b.innerHTML = '<span style="font-size: 2rem;">🧧</span>';
+            b.innerHTML = '<span style="font-size: 2.2rem;">🧧</span>';
         });
         nextSlide(1);
     }
