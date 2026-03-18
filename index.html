@@ -16,7 +16,6 @@
         .app-container {
             width: 100%; max-width: 450px; height: 100%; position: relative; 
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            /* SEKARANG MEMANGGIL FILE DARI GITHUB */
             background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
                               url('THR Nada.png');
             background-size: cover; background-position: center; overflow: hidden;
@@ -28,6 +27,17 @@
             padding: 120px 20px 20px 20px; text-align: center; position: relative; 
         }
         .active { display: flex; }
+
+        /* Aturan khusus untuk Slide 1 agar tulisan lebih turun */
+        #slide1 {
+            padding-top: 180px; 
+        }
+        #slide1 h1 {
+            margin-bottom: 25px;
+        }
+        #slide1 p {
+            margin-bottom: 40px;
+        }
 
         h1, h2, h3 { color: var(--dark-green); margin: 10px 0; z-index: 20; position: relative; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);}
         p { margin-bottom: 20px; font-size: 0.95rem; z-index: 20; position: relative; font-weight: 500;}
@@ -177,7 +187,6 @@
         });
         const familyImg = new Image();
         familyImg.src = 'family picture.png';
-        // Preload Background juga
         const bgImg = new Image();
         bgImg.src = 'THR Nada.png';
     };
