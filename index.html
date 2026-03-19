@@ -21,6 +21,15 @@
             background-size: cover; background-position: center; overflow: hidden;
         }
 
+        /* Gaya Tombol Musik */
+        .music-control {
+            position: absolute; top: 20px; right: 20px; z-index: 200;
+            background: rgba(27, 67, 50, 0.8); color: white; border: 2px solid var(--gold);
+            width: 40px; height: 40px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; cursor: pointer; font-size: 1.2rem;
+            display: none;
+        }
+
         .section { 
             display: none; height: 100%; flex-direction: column; 
             justify-content: flex-start; align-items: center; 
@@ -116,7 +125,13 @@
 </head>
 <body>
 
+<audio id="myAudio" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
 <div class="app-container">
+    <div id="musicBtn" class="music-control" onclick="toggleMusic()">🔊</div>
+
     <div id="slide1" class="section active">
         <h1>Selamat Hari Raya Idul Fitri 1446 H</h1>
         <p>Minal Aidzin wal faidzin</p>
@@ -174,12 +189,11 @@
         'zonk': 'zonk.png'
     };
 
-    // Data Awal dengan 3 Zonk
     const initialAmpauData = [
         { type: '20k', count: 1, text: '20.000' },
         { type: 'zonk', count: 1, text: 'zonk' },
         { type: '10k', count: 1, text: '10.000x2 = 20.000' },
-        { type: 'zonk', count: 1, text: 'zonk' }, // Tambahan zonk
+        { type: 'zonk', count: 1, text: 'zonk' },
         { type: '5k', count: 1, text: '5.000x4 = 20.000' },
         { type: '10k', count: 1, text: '10.000x2 = 20.000' },
         { type: 'zonk', count: 1, text: 'zonk' },
@@ -189,8 +203,30 @@
     let opened = false;
     let isShuffling = false;
     let currentResult = '';
+    let musicStarted = false;
+
+    // Fungsi Putar/Pause Musik
+    function toggleMusic() {
+        const audio = document.getElementById('myAudio');
+        const btn = document.getElementById('musicBtn');
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = "🔊";
+        } else {
+            audio.pause();
+            btn.innerText = "🔇";
+        }
+    }
 
     function nextSlide(n) {
+        // Logika Mulai Musik saat klik tombol slide 1 ke slide 2
+        if (!musicStarted && n === 2) {
+            const audio = document.getElementById('myAudio');
+            audio.play().catch(e => console.log("Audio play blocked by browser"));
+            document.getElementById('musicBtn').style.display = "flex";
+            musicStarted = true;
+        }
+
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById('slide' + n).classList.add('active');
     }
@@ -247,12 +283,10 @@
         const btnKlaim = document.getElementById('btnKlaim');
         
         if (type === 'zonk') {
-            // Tampilkan bubble di tengah ampau
             const bubble = document.createElement('div');
             bubble.className = 'zonk-bubble';
             bubble.innerText = "ZONKK, yahh kasian banget 🥺";
             el.appendChild(bubble);
-            
             btnKlaim.innerText = "Selesai";
         } else {
             const moneyCont = document.createElement('div');
@@ -278,15 +312,14 @@
 
             btnKlaim.innerText = "Klaim THR ➔";
         }
-        
         btnKlaim.style.display = "block";
     }
 
     function handleClaim() {
         if (currentResult === 'zonk') {
-            restartApp(); // Kembali ke slide 1 jika zonk
+            restartApp(); 
         } else {
-            nextSlide(4); // Lanjut pilih pengambilan jika menang
+            nextSlide(4);
         }
     }
 
